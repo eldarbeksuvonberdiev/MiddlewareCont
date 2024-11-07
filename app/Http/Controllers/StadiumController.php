@@ -13,7 +13,8 @@ class StadiumController extends Controller
      */
     public function index()
     {
-        //
+        $models = Stadium::orderBy('id','desc')->paginate(10);
+        return view('stadium.index',['models' => $models]);
     }
 
     /**
@@ -29,7 +30,13 @@ class StadiumController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' =>'required',
+            'address' =>'required',
+            'capacity' =>'required',
+        ]);
+        Stadium::create($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -53,7 +60,13 @@ class StadiumController extends Controller
      */
     public function update(Request $request, Stadium $stadium)
     {
-        //
+        $request->validate([
+            'name' =>'required',
+            'address' =>'required',
+            'capacity' =>'required',
+        ]);
+        $stadium->update($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -61,6 +74,7 @@ class StadiumController extends Controller
      */
     public function destroy(Stadium $stadium)
     {
-        //
+        $stadium->delete();
+        return redirect()->back();
     }
 }

@@ -13,7 +13,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $models = Student::orderBy('id','desc')->paginate(10);
+        return view('student.index',['models' => $models]);
     }
 
     /**
@@ -29,7 +30,13 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'full_name' =>'required',
+            'phone' =>'required',
+            'email' =>'required|email',
+        ]);
+        Student::create($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -53,7 +60,13 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        $request->validate([
+            'full_name' =>'required',
+            'phone' =>'required',
+            'email' =>'required|email',
+        ]);
+        $student->update($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -61,6 +74,7 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+        return redirect()->back();
     }
 }

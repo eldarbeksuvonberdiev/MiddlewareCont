@@ -29,21 +29,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        // Role::create(['name' => 'HR']);
-        // Role::create(['name' => 'Accountant']);
-        // Role::create(['name' => 'Manager']);
-        // for ($i = 1; $i <= 10; $i++) {
-        //     $user = User::create([
-        //         'name' => 'User' . $i,
-        //         'email' => 'user' . $i . '@gmail.com',
-        //         'password' => Hash::make('123456')
-        //     ]);
 
-        //     $row = rand(1,3);
-        //     for ($j=0; $j < $row ; $j++) { 
-        //         $user->roles->attach(rand(1,3));
-        //     }
-        // }
 
         for ($i=0; $i < 100; $i++) { 
             Car::create([
@@ -91,7 +77,25 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+        Role::create(['name' => 'car']);
+        Role::create(['name' => 'category']);
+        Role::create(['name' => 'home']);
+        Role::create(['name' => 'hospital']);
+        Role::create(['name' => 'stadium']);
+        Role::create(['name' => 'student']);
 
+        for ($i = 1; $i <= 30; $i++) {
+            $user = User::create([
+                'name' => 'User' . $i,
+                'email' => 'user' . $i . '@gmail.com',
+                'password' => Hash::make('123456')
+            ]);
+
+            $row = rand(1,6);
+            for ($j=0; $j < $row ; $j++) { 
+                $user->roles()->attach(rand(1,6));
+            }
+        }
 
 
     }

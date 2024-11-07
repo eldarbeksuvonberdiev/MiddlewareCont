@@ -13,7 +13,8 @@ class CarController extends Controller
      */
     public function index()
     {
-        //
+        $models = Car::orderBy('id','desc')->paginate(10);
+        return view('car.index',['models' => $models]);
     }
 
     /**
@@ -29,7 +30,13 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'model' => 'required',
+            'color' => 'required',
+        ]);
+        Car::create($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -53,7 +60,13 @@ class CarController extends Controller
      */
     public function update(Request $request, Car $car)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'model' => 'required',
+            'color' => 'required',
+        ]);
+        $car->update($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -61,6 +74,7 @@ class CarController extends Controller
      */
     public function destroy(Car $car)
     {
-        //
+        $car->delete();
+        return redirect()->back();
     }
 }

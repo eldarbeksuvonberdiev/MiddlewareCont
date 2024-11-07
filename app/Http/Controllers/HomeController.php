@@ -13,7 +13,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //
+        $models = Home::orderBy('id','desc')->paginate(10);
+        return view('home.index',['models' => $models]);
     }
 
     /**
@@ -29,7 +30,13 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'home_number' => 'required',
+        ]);
+        Home::create($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -53,7 +60,13 @@ class HomeController extends Controller
      */
     public function update(Request $request, Home $home)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'home_number' => 'required',
+        ]);
+        $home->update($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -61,6 +74,7 @@ class HomeController extends Controller
      */
     public function destroy(Home $home)
     {
-        //
+        $home->delete();
+        return redirect()->back();
     }
 }

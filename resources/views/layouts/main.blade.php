@@ -68,26 +68,50 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-accordion="false">
                         <li class="nav-item">
-                            <a href="/" class="nav-link">
+                            <a href="{{ route('car.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
-                                    Users
+                                    Car
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/student" class="nav-link">
+                            <a href="{{ route('category.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Category
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('home.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Home
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('hospital.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Hospital
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('stadium.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Stadium
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('student.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Students
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/post" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Posts
                                 </p>
                             </a>
                         </li>

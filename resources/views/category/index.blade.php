@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
-@section('title', 'Student')
-@section('pagename', 'Student')
+@section('title', 'Category')
+@section('pagename', 'Category')
 
 @section('content')
     <section class="content">
@@ -16,36 +16,11 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('student.create') }}" method="POST">
+                        <form action="{{ route('category.store') }}" method="POST">
                             @csrf
                             <div class="mb-3">
-                                <label for="fname" class="form-label">First Name</label>
-                                <input type="text" class="form-control" name="first_name" id="fname"
-                                    placeholder="Jahon yangiliklari...">
-                            </div>
-                            <div class="mb-3">
-                                <label for="lname" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" name="last_name" id="lname"
-                                    placeholder="Jahon yangiliklari...">
-                            </div>
-                            <div class="mb-3">
-                                <label for="birth" class="form-label">Birth date</label>
-                                <input type="date" class="form-control" name="birth_date" id="birth"
-                                    placeholder="Jahon yangiliklari...">
-                            </div>
-                            <div class="mb-3">
-                                <label for="gender" class="form-label">Gender</label>
-                                <input type="text" class="form-control" name="gender" id="gender"
-                                    placeholder="Jahon yangiliklari...">
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" name="email" id="email"
-                                    placeholder="Jahon yangiliklari...">
-                            </div>
-                            <div class="mb-3">
-                                <label for="phone" class="form-label">Phone</label>
-                                <input type="number" class="form-control" name="phone" id="phone"
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" name="name" id="name"
                                     placeholder="Jahon yangiliklari...">
                             </div>
                             <div class="modal-footer">
@@ -68,10 +43,7 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Full Name</th>
-                                    <th>Birth date</th>
-                                    <th>email</th>
-                                    <th>Show</th>
+                                    <th>Name</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
@@ -80,10 +52,7 @@
                                 @foreach ($models as $model)
                                     <tr>
                                         <td>{{ $model->id }}</td>
-                                        <td>{{ $model->first_name }} {{ $model->last_name }}</td>
-                                        <td>{{ $model->birth_date }}</td>
-                                        <td>{{ $model->email }}</td>
-                                        <td><a href="{{ route('student.show',$model->id) }}" class="btn btn-info">Show</a></td>
+                                        <td>{{ $model->name }}</td>
                                         <td>
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                                 data-bs-target="#edit{{ $model->id }}">
@@ -100,39 +69,14 @@
                                                                 aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form action="{{ route('student.update',$model->id) }}"
+                                                            <form action="{{ route('category.update',$model->id) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('PUT')
                                                                 <div class="mb-3">
-                                                                    <label for="fname" class="form-label">First Name</label>
-                                                                    <input type="text" class="form-control" name="first_name" id="fname"
-                                                                        value="{{ $model->first_name }}">
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="lname" class="form-label">Last Name</label>
-                                                                    <input type="text" class="form-control" name="last_name" id="lname"
-                                                                        value="{{ $model->last_name }}">
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="birth" class="form-label">Birth date</label>
-                                                                    <input type="date" class="form-control" name="birth_date" id="birth"
-                                                                        value="{{ $model->birth_date }}">
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="gender" class="form-label">Gender</label>
-                                                                    <input type="text" class="form-control" name="gender" id="gender"
-                                                                        value="{{ $model->gender }}">
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="email" class="form-label">Email</label>
-                                                                    <input type="email" class="form-control" name="email" id="email"
-                                                                        value="{{ $model->email }}">
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="phone" class="form-label">Phone</label>
-                                                                    <input type="number" class="form-control" name="phone" id="phone"
-                                                                        value="{{ $model->phone }}">
+                                                                    <label for="name" class="form-label">Name</label>
+                                                                    <input type="text" class="form-control" name="name" id="name"
+                                                                        value="{{ $model->name }}">
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary"
@@ -148,7 +92,7 @@
                                         </td>
                                         <td>
                                             <div>
-                                                <form action="{{ route('student.delete',$model->id) }}" method="POST">
+                                                <form action="{{ route('category.destroy',$model->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-danger" type="submit">Delete</button>

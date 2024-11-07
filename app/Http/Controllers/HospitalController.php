@@ -13,7 +13,8 @@ class HospitalController extends Controller
      */
     public function index()
     {
-        //
+        $models = Hospital::orderBy('id','desc')->paginate(10);
+        return view('hospital.index',['models' => $models]);
     }
 
     /**
@@ -29,7 +30,13 @@ class HospitalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' =>'required',
+            'address' =>'required',
+            'capacity' =>'required',
+        ]);
+        Hospital::create($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -53,7 +60,13 @@ class HospitalController extends Controller
      */
     public function update(Request $request, Hospital $hospital)
     {
-        //
+        $request->validate([
+            'name' =>'required',
+            'address' =>'required',
+            'capacity' =>'required',
+        ]);
+        $hospital->update($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -61,6 +74,7 @@ class HospitalController extends Controller
      */
     public function destroy(Hospital $hospital)
     {
-        //
+        $hospital->delete();
+        return redirect()->back();
     }
 }
