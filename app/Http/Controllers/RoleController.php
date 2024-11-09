@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Models\Permission;
+use App\Models\RoleUser;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -13,7 +15,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        $roles = Role::orderBy('id','desc')->paginate(10);
+        $permissions = Permission::all();
+        return view('role.index',['models'=>$roles,'permissions' =>$permissions]);
     }
 
     /**
@@ -29,7 +33,14 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $role = ['name' => $request->name];
+
+        $role  = Role::create($role);
+        
+        $permissions = $request->permissions;
+
+        $role->permissions()->attach($permissions);
+        return redirect()->route('role.index');
     }
 
     /**
