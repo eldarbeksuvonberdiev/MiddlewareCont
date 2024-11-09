@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Permission;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,12 +15,30 @@ class Check
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next,...$roles): Response
+    public function handle(Request $request, Closure $next): Response
     {
-        $userRoles = Auth::user()->roles;
-        if (Auth::user() && $userRoles->whereIn('name',$roles)->first()) {
-            return $next($request);
+        $routename = $request->route()->getName();
+
+        if (Auth::check()) {
+
+            if (Permission::where('key', $routename)->first()) {
+
+                $role = Auth::user()->roles->first();
+
+                if ($role->permissions()->where('key', $routename)->exists()) {
+
+                    return $next($request);
+                } else {
+
+                    abort(403);
+                }
+            } else {
+
+                abort(404);
+            }
+        } else {
+
+            return redirect()->route('tologin');
         }
-        abort(403);
     }
 }

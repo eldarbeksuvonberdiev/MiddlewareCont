@@ -50,4 +50,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'role_users', 'user_id', 'role_id');
     }
+
+    public function hasPermission($permission){
+        return $this->roles()->whereHas('permissions',function ($query) use ($permission){
+            $query->where('key',$permission);
+        })->exists();
+    }
 }

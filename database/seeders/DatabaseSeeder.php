@@ -6,12 +6,15 @@ use App\Models\Car;
 use App\Models\Category;
 use App\Models\Home;
 use App\Models\Hospital;
+use App\Models\Permission;
 use App\Models\Role;
 use App\Models\Stadium;
 use App\Models\Student;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Route;
+
 use Illuminate\Support\Facades\Hash;
 use Nette\Utils\Random;
 
@@ -31,7 +34,7 @@ class DatabaseSeeder extends Seeder
 
 
 
-        for ($i=0; $i < 100; $i++) { 
+        for ($i=0; $i < 10; $i++) { 
             Car::create([
                 'name' => 'Car'.$i,
                 'model' => 'Model'.$i,
@@ -39,13 +42,13 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        for ($i=0; $i < 100; $i++) { 
+        for ($i=0; $i < 10; $i++) { 
             Category::create([
                 'name' => 'Category'.$i
             ]);
         }
 
-        for ($i=0; $i < 100; $i++) { 
+        for ($i=0; $i < 10; $i++) { 
             Home::create([
                 'name' => 'Home'.$i,
                 'address' => fake()->address(),
@@ -53,7 +56,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        for ($i=0; $i < 100; $i++) { 
+        for ($i=0; $i < 10; $i++) { 
             Hospital::create([
                 'name' => 'Hospital'.$i,
                 'address' => fake()->address(),
@@ -61,7 +64,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        for ($i=0; $i < 100; $i++) { 
+        for ($i=0; $i < 10; $i++) { 
             Stadium::create([
                 'name' => 'Stadium'.$i,
                 'address' => fake()->address(),
@@ -69,7 +72,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        for ($i=0; $i < 100; $i++) { 
+        for ($i=0; $i < 10; $i++) { 
             Student::create([
                 'full_name' => 'Student'.$i,
                 'phone' => fake()->phoneNumber(),
@@ -77,14 +80,15 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        Role::create(['name' => 'car']);
-        Role::create(['name' => 'category']);
-        Role::create(['name' => 'home']);
-        Role::create(['name' => 'hospital']);
-        Role::create(['name' => 'stadium']);
-        Role::create(['name' => 'student']);
+        $role1 = Role::create(['name' => 'admin']);
+        $role2 = Role::create(['name' => 'car']);
+        $role3 = Role::create(['name' => 'category']);
+        $role4 = Role::create(['name' => 'home']);
+        $role5 = Role::create(['name' => 'hospital']);
+        $role6 = Role::create(['name' => 'stadium']);
+        $role7 = Role::create(['name' => 'student']);
 
-        for ($i = 1; $i <= 30; $i++) {
+        for ($i = 1; $i <= 15; $i++) {
             $user = User::create([
                 'name' => 'User' . $i,
                 'email' => 'user' . $i . '@gmail.com',
@@ -97,6 +101,27 @@ class DatabaseSeeder extends Seeder
             }
         }
 
+        $routes = Route::getRoutes();
+        foreach ($routes as $route) {
+            $key = $route->getName();
 
+            if ($key && !str_starts_with($key,'generated') && $key !== 'storage.local') {
+                $name = ucfirst(str_replace('.','-',$key));
+                Permission::create([
+                    'key' => $key,
+                    'name' => $name
+                ]);
+            }
+        }
+
+        $permissions = Permission::pluck('id')->toArray();
+
+        $role1->permissions()->attach($permissions);
+        $role2->permissions()->attach($permissions);
+        $role3->permissions()->attach($permissions);
+        $role4->permissions()->attach($permissions);
+        $role5->permissions()->attach($permissions);
+        $role6->permissions()->attach($permissions);
+        $role7->permissions()->attach($permissions);
     }
 }

@@ -18,22 +18,22 @@ Route::get('/', function () {
     return view('layouts.main');
 })->name('main')->middleware('auth');
 
-Route::middleware(['check:admin,car'])->group(function () {
+Route::middleware(['check'])->group(function () {
     Route::resource('car', CarController::class);
 });
-Route::middleware(['check:admin,category'])->group(function () {
+Route::middleware(['check'])->group(function () {
     Route::resource('category', CategoryController::class);
 });
-Route::middleware(['check:admin,home'])->group(function () {
+Route::middleware(['check'])->group(function () {
     Route::resource('home', HomeController::class);
 });
-Route::middleware(['check:admin,hospital'])->group(function () {
+Route::middleware(['check'])->group(function () {
     Route::resource('hospital', HospitalController::class);
 });
-Route::middleware(['check:admin,stadium'])->group(function () {
+Route::middleware(['check'])->group(function () {
     Route::resource('stadium', StadiumController::class);
 });
-Route::middleware(['check:admin,student'])->group(function () {
+Route::middleware(['check'])->group(function () {
     Route::resource('student', StudentController::class);
 });
 
