@@ -29,7 +29,7 @@
                                   <div class="select2-purple">
                                     <select class="select2" multiple="multiple" name="permissions[]" data-placeholder="Select a State" data-dropdown-css-class="select2-purple" style="width: 100%;">
                                       @foreach ($permissions as $permission)
-                                      <option value="{{ $permission->key }}">{{ $permission->name }}</option>
+                                      <option value="{{ $permission->id }}">{{ $permission->name }}</option>
                                           
                                       @endforeach
                                     </select>
