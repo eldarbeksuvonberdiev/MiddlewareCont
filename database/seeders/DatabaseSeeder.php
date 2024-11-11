@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Home;
 use App\Models\Hospital;
 use App\Models\Permission;
+use App\Models\PermissionGroup;
 use App\Models\Role;
 use App\Models\Stadium;
 use App\Models\Student;
@@ -105,11 +106,16 @@ class DatabaseSeeder extends Seeder
         foreach ($routes as $route) {
             $key = $route->getName();
 
+            
             if ($key && !str_starts_with($key,'generated') && $key !== 'storage.local') {
+                $key1 = $key;
+                $groupName = explode('.',$key1)[0];
+                $group = PermissionGroup::firstOrCreate(['name'=> $groupName]);
                 $name = ucfirst(str_replace('.','-',$key));
                 Permission::create([
                     'key' => $key,
-                    'name' => $name
+                    'name' => $name,
+                    'permission_group_id' => $group->id
                 ]);
             }
         }

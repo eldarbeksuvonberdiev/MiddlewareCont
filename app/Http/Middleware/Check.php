@@ -38,7 +38,7 @@ class Check
             }
         } else {
 
-            return redirect()->route('tologin');
+            return redirect()->route('login');
         }
     }
 }

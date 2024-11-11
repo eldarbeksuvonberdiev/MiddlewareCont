@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
+use App\Models\PermissionGroup;
 use App\Models\RoleUser;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,7 @@ class RoleController extends Controller
     {
         $roles = Role::orderBy('id','desc')->paginate(10);
         $permissions = Permission::all();
-        return view('role.index',['models'=>$roles,'permissions' =>$permissions]);
+        return view('role.index',['models'=>$roles]);
     }
 
     /**
@@ -25,7 +26,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        $permissionGroups = PermissionGroup::all();
+        return view('role.create',['permissionGroups' => $permissionGroups]);
     }
 
     /**

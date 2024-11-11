@@ -52,7 +52,7 @@
                     </div>
                 </form>
             </div>
-            <a href="{{ route('tologin') }}" class="text-center">I already have a membership</a>
+            <a href="{{ route('login') }}" class="text-center">I already have a membership</a>
         </div>
     </div>
 @endsection
